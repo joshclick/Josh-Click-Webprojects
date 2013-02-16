@@ -64,7 +64,7 @@ Needle.prototype.draw = function(type, needlePath, r1, r2) {
     needlePath = needlePath.animate({path:[
 		["M", cx + r1 * Math.cos(radLoc), cy + r1 * Math.sin(radLoc)],
 		["L", cx + r2 * Math.cos(radLoc), cy + r2 * Math.sin(radLoc)]
-	]}, 500, "elastic");
+	]}, 100, "elastic");
 	
 };
 
@@ -90,7 +90,7 @@ $(document).ready(function() {
 	var rad = hSIZE;
 	for (var c = 0; c < 4; c++) {
 		//radial gradient changed slightly every iteration for best fade appearance
-		var circFill = "r#303030:" + (70-c*18) + "-#000:100";
+		var circFill = "r#333:" + (60-c*18) + "-#000:100";
 		
 		bg.circle(cx, cy, rad).attr({fill: circFill});
 		rad -= diff;
@@ -99,8 +99,8 @@ $(document).ready(function() {
 
 	//draw needles
 	var needleFill = "rgba(100,100,100,0.7)";
-	var secNeedle = new Needle(bg, 's', hSIZE-diff, hSIZE, 5, needleFill);
-	var minNeedle = new Needle(bg, 'm', hSIZE-(diff*2), hSIZE-diff, 5, needleFill);
-	var hrNeedle = new Needle(bg, 'h', hSIZE-(diff*3), hSIZE-(diff*2), 5, needleFill);
+	var secNeedle = new Needle(bg, 's', hSIZE-diff, hSIZE, 3, needleFill);
+	var minNeedle = new Needle(bg, 'm', hSIZE-(diff*2), hSIZE-diff, 3, needleFill);
+	var hrNeedle = new Needle(bg, 'h', hSIZE-(diff*3), hSIZE-(diff*2), 3, needleFill);
 
 });
