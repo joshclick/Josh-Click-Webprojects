@@ -76,13 +76,17 @@ function updateBGColor() {
 	//var ms = new Date().getMilliseconds();
 	var time = h*60 + m;
 	var h = time/1440*255;
-	darkColor =		"hsl(" + h + ",40,13)"
-	brightColor =	"hsl(" + h + ",60,22)"
+	var b = 60;
+	var brightColor =	"hsl(" + h + ",60," + b + ")";
 
-	circArr[0].attr({fill: "r" + brightColor + ":" + (60) + "-hsl(0,0,96):100"});
+
+	circArr[0].attr({fill: "r" + brightColor + ":" + (70) + "-hsl(0,0,96):100"});
 	for (var c = 1; c < circArr.length; c++) {
-		var circFill = "r" + brightColor + ":" + (60-(c-1)*20) + "-" + darkColor + ":100";
+		var darkColor =		"hsl(" + h + ",60,"+ (b-6) + ")";
+		brightColor =	"hsl(" + h + ",60," + b + ")";
+		var circFill = "r" + brightColor + ":" + (60-(c-1)*18) + "-" + darkColor + ":100";
 		circArr[c].attr({fill: circFill});
+		b -= 10;
 	}
 }
 
@@ -104,8 +108,8 @@ $(document).ready(function() {
 	var diff = 70;
 	
 	//baseColor = "#333";
-	darkColor = 	"hsl(0,0,15)";
-	brightColor = 	"hsl(0,0,22)";
+	var darkColor = 	"hsl(0,0,15)";
+	var brightColor = 	"hsl(0,0,22)";
 	
 	//draw bg circles
 	circArr = []
