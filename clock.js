@@ -37,6 +37,7 @@ function Needle(holder, type, R1, R2, stroke_width, colour) {
     	
     var n = this;
     setInterval( function() { n.draw(type, needlePath, r1, r2); }, 1000);
+    setInterval( updateBGColor(), 60000);
 
 }
 
@@ -68,6 +69,22 @@ Needle.prototype.draw = function(type, needlePath, r1, r2) {
 	
 };
 
+function updateBGColor() {
+	var h = new Date().getHours();
+	var m = new Date().getMinutes();
+	//var s = new Date().getSeconds();
+	//var ms = new Date().getMilliseconds();
+	var time = h*60 + m;
+	var h = time/1440*255;
+	darkColor =		"hsl(" + h + ",40,12)"
+	brightColor =	"hsl(" + h + ",40,22)"
+
+	circArr[0].attr({fill: "r" + darkColor + ":" + (50) + "-hsl(0,0,96):100"});
+	for (var c = 1; c < circArr.length; c++) {
+		var circFill = "r" + brightColor + ":" + (60-(c-1)*18) + "-" + darkColor + ":100";
+		circArr[c].attr({fill: circFill});
+	}
+}
 
 $(document).ready(function() {
 	var SIZE = 500;
@@ -86,25 +103,26 @@ $(document).ready(function() {
 	cy = cx;
 	var diff = 70;
 	
-	//baseColor = Raphael.hsl(221,67,33);
-	baseColor = "#333";
-	//baseColor = "hsl(221,67,23)";
+	//baseColor = "#333";
+	darkColor = 	"hsl(0,0,12)";
+	brightColor = 	"hsl(0,0,22)";
 	
-	bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + baseColor + ":" + (30) + "-#f6f6f6:100"});
-
 	//draw bg circles
+	circArr = []
+	
+	circArr.push(bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + darkColor + ":" + (50) + "-hsl(0,0,96):100"}));
 	var rad = hSIZE;
 	for (var c = 0; c < 4; c++) {
 		//radial gradient changed slightly every iteration for best fade appearance
-		var circFill = "r" + baseColor + ":" + (60-c*18) + "-#000000:100";
+		var circFill = "r" + brightColor + ":" + (60-c*18) + "-" + darkColor + ":100";
 		
-		bg.circle(cx, cy, rad).attr({fill: circFill});
+		circArr.push(bg.circle(cx, cy, rad).attr({stroke: "none", fill: circFill}));
 		rad -= diff;
 	}
-	bg.circle(cx, cy, rad+diff).attr({fill: "#000"});
+	bg.circle(cx, cy, rad+diff).attr({stroke: "none", fill: "#000"});
 
 	//draw needles
-	var needleFill = "rgba(100,100,100,0.7)";
+	var needleFill = "rgba(100,100,100,0.5)";
 	var secNeedle = new Needle(bg, 's', hSIZE-diff, hSIZE, 3, needleFill);
 	var minNeedle = new Needle(bg, 'm', hSIZE-(diff*2), hSIZE-diff, 3, needleFill);
 	var hrNeedle = new Needle(bg, 'h', hSIZE-(diff*3), hSIZE-(diff*2), 3, needleFill);
