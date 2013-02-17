@@ -77,20 +77,26 @@ $(document).ready(function() {
 	document.getElementById("holder").style.width = SIZE + "px";
 	document.getElementById("holder").style.height = (SIZE+20) + "px";
 	
-	var bg = Raphael("holder", SIZE, SIZE);
+	var bg = Raphael("holder", SIZE+100, SIZE+100);
 	
 	tickFX = document.getElementById("tick");
 	tickFX.volume = 0.8;
 	
-	cx = hSIZE;
+	cx = hSIZE+50;
 	cy = cx;
 	var diff = 70;
 	
+	//baseColor = Raphael.hsl(221,67,33);
+	baseColor = "#333";
+	//baseColor = "hsl(221,67,23)";
+	
+	bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + baseColor + ":" + (30) + "-#f6f6f6:100"});
+
 	//draw bg circles
 	var rad = hSIZE;
 	for (var c = 0; c < 4; c++) {
 		//radial gradient changed slightly every iteration for best fade appearance
-		var circFill = "r#333:" + (60-c*18) + "-#000:100";
+		var circFill = "r" + baseColor + ":" + (60-c*18) + "-#000000:100";
 		
 		bg.circle(cx, cy, rad).attr({fill: circFill});
 		rad -= diff;
