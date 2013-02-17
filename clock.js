@@ -76,17 +76,17 @@ function updateBGColor() {
 	//var ms = new Date().getMilliseconds();
 	var time = h*60 + m;
 	var h = time/1440*255;
-	var b = 60;
-	var brightColor =	"hsl(" + h + ",60," + b + ")";
+	var l = 60;
+	var brightColor =	"hsl(" + h + ",60," + l + ")";
 
 
 	circArr[0].attr({fill: "r" + brightColor + ":" + (70) + "-hsl(0,0,96):100"});
 	for (var c = 1; c < circArr.length; c++) {
-		var darkColor =		"hsl(" + h + ",60,"+ (b-6) + ")";
-		brightColor =	"hsl(" + h + ",60," + b + ")";
+		var darkColor =		"hsl(" + h + ",60,"+ (l-6) + ")";
+		brightColor =	"hsl(" + h + ",60," + l + ")";
 		var circFill = "r" + brightColor + ":" + (60-(c-1)*18) + "-" + darkColor + ":100";
 		circArr[c].attr({fill: circFill});
-		b -= 10;
+		l -= 10;
 	}
 }
 
