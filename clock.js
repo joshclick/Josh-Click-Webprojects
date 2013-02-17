@@ -76,12 +76,12 @@ function updateBGColor() {
 	//var ms = new Date().getMilliseconds();
 	var time = h*60 + m;
 	var h = time/1440*255;
-	darkColor =		"hsl(" + h + ",40,12)"
-	brightColor =	"hsl(" + h + ",40,22)"
+	darkColor =		"hsl(" + h + ",40,13)"
+	brightColor =	"hsl(" + h + ",60,22)"
 
-	circArr[0].attr({fill: "r" + darkColor + ":" + (50) + "-hsl(0,0,96):100"});
+	circArr[0].attr({fill: "r" + brightColor + ":" + (60) + "-hsl(0,0,96):100"});
 	for (var c = 1; c < circArr.length; c++) {
-		var circFill = "r" + brightColor + ":" + (60-(c-1)*18) + "-" + darkColor + ":100";
+		var circFill = "r" + brightColor + ":" + (60-(c-1)*20) + "-" + darkColor + ":100";
 		circArr[c].attr({fill: circFill});
 	}
 }
@@ -104,13 +104,13 @@ $(document).ready(function() {
 	var diff = 70;
 	
 	//baseColor = "#333";
-	darkColor = 	"hsl(0,0,12)";
+	darkColor = 	"hsl(0,0,15)";
 	brightColor = 	"hsl(0,0,22)";
 	
 	//draw bg circles
 	circArr = []
 	
-	circArr.push(bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + darkColor + ":" + (50) + "-hsl(0,0,96):100"}));
+	circArr.push(bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + brightColor + ":" + (60) + "-hsl(0,0,96):100"}));
 	var rad = hSIZE;
 	for (var c = 0; c < 4; c++) {
 		//radial gradient changed slightly every iteration for best fade appearance
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	bg.circle(cx, cy, rad+diff).attr({stroke: "none", fill: "#000"});
 
 	//draw needles
-	var needleFill = "rgba(100,100,100,0.5)";
+	var needleFill = "rgba(220,220,220,0.5)";
 	var secNeedle = new Needle(bg, 's', hSIZE-diff, hSIZE, 3, needleFill);
 	var minNeedle = new Needle(bg, 'm', hSIZE-(diff*2), hSIZE-diff, 3, needleFill);
 	var hrNeedle = new Needle(bg, 'h', hSIZE-(diff*3), hSIZE-(diff*2), 3, needleFill);
