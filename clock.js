@@ -1,68 +1,67 @@
 function Needle(holder, type, R1, R2, stroke_width, colour) {
-     var color = colour || "#fff",
-        width = stroke_width || 1,
-        r1 = Math.min(R1, R2) || 35,
-        r2 = Math.max(R1, R2) || 60,
-        r = holder,
-        pathParams = {stroke: color, "stroke-width": width};
-            
-    //to determine type of needle (sec, min, hr, etc)
-    var time;
-    var frac;
-    switch(type) {
-	    case 's':
-	    	time = new Date().getSeconds();
-	    	frac = time/60;
-	    	break;	    
-	    case 'm':
-	    	time = new Date().getMinutes();
-	    	frac = time/60;
-	    	break;
-	    case 'h':
-	    	time = new Date().getHours();
-	    	frac = time/24;
-	    	break;
-    }
-    var radLoc = (2*Math.PI * frac) - Math.PI/2 ;
+	var color = colour || "#fff",
+		width = stroke_width || 1,
+		r1 = Math.min(R1, R2) || 35,
+		r2 = Math.max(R1, R2) || 60,
+		r = holder,
+		pathParams = {stroke: color, "stroke-width": width};
+			
+	//to determine type of needle (sec, min, hr, etc)
+	var time;
+	var frac;
+	switch(type) {
+		case 's':
+			time = new Date().getSeconds();
+			frac = time/60;
+			break;
+		case 'm':
+			time = new Date().getMinutes();
+			frac = time/60;
+			break;
+		case 'h':
+			time = new Date().getHours();
+			frac = time/24;
+			break;
+	}
+	var radLoc = (2*Math.PI * frac) - Math.PI/2 ;
 
-    var needlePath = r.path([
+	var needlePath = r.path([
 		["M", cx + r1 * Math.cos(radLoc), cy + r1 * Math.sin(radLoc)],
 		["L", cx + r2 * Math.cos(radLoc), cy + r2 * Math.sin(radLoc)]
-    ]).attr(pathParams);
-        
-    //stall until start of second
-    var currSec = new Date().getMilliseconds();
-    while (currSec > 50)
-    	currSec = new Date().getMilliseconds();
-    	
-    var n = this;
-    setInterval( function() { n.draw(type, needlePath, r1, r2); }, 1000);
-    setInterval( updateBGColor(), 60000);
-
+	]).attr(pathParams);
+		
+	//stall until start of second
+	var currSec = new Date().getMilliseconds();
+	while (currSec > 50)
+		currSec = new Date().getMilliseconds();
+		
+	var n = this;
+	setInterval( function() { n.draw(type, needlePath, r1, r2); }, 1000);
+	setInterval( updateBGColor(), 30000);
 }
 
 Needle.prototype.draw = function(type, needlePath, r1, r2) {
-    //to determine type of needle (sec, min, hr, etc)
-    var time;
-    var frac;
-    switch(type) {
-	    case 's':
-	    	time = new Date().getSeconds();
-	    	frac = time/60;
-	    	break;	    
-	    case 'm':
-	    	time = new Date().getMinutes();
-	    	frac = time/60;
-	    	break;
-	    case 'h':
-	    	time = new Date().getHours();
-	    	frac = time/24;
-	    	break;
-    }
-    var radLoc = (2*Math.PI * frac) - Math.PI/2 ;
-        
-    tickFX.play();
-    needlePath = needlePath.animate({path:[
+	//to determine type of needle (sec, min, hr, etc)
+	var time;
+	var frac;
+	switch(type) {
+		case 's':
+			time = new Date().getSeconds();
+			frac = time/60;
+			break;
+		case 'm':
+			time = new Date().getMinutes();
+			frac = time/60;
+			break;
+		case 'h':
+			time = new Date().getHours();
+			frac = time/24;
+			break;
+	}
+	var radLoc = (2*Math.PI * frac) - Math.PI/2 ;
+		
+	tickFX.play();
+	needlePath = needlePath.animate({path:[
 		["M", cx + r1 * Math.cos(radLoc), cy + r1 * Math.sin(radLoc)],
 		["L", cx + r2 * Math.cos(radLoc), cy + r2 * Math.sin(radLoc)]
 	]}, 100, "elastic");
@@ -70,15 +69,13 @@ Needle.prototype.draw = function(type, needlePath, r1, r2) {
 };
 
 function updateBGColor() {
-	var h = new Date().getHours();
+	var hr = new Date().getHours();
 	var m = new Date().getMinutes();
-	//var s = new Date().getSeconds();
-	//var ms = new Date().getMilliseconds();
-	var time = h*60 + m;
+	var time = hr*60 + m;
+
 	var h = time/1440*255;
 	var l = 60;
 	var brightColor =	"hsl(" + h + ",60," + l + ")";
-
 
 	circArr[0].attr({fill: "r" + brightColor + ":" + (70) + "-hsl(0,0,96):100"});
 	for (var c = 1; c < circArr.length; c++) {
@@ -108,12 +105,11 @@ $(document).ready(function() {
 	var diff = 70;
 	
 	//baseColor = "#333";
-	var darkColor = 	"hsl(0,0,15)";
-	var brightColor = 	"hsl(0,0,22)";
+	var darkColor =		"hsl(0,0,15)";
+	var brightColor =	"hsl(0,0,22)";
 	
 	//draw bg circles
-	circArr = []
-	
+	circArr = [];
 	circArr.push(bg.circle(300, 300, 300).attr({stroke: "none", fill: "r" + brightColor + ":" + (60) + "-hsl(0,0,96):100"}));
 	var rad = hSIZE;
 	for (var c = 0; c < 4; c++) {
