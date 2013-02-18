@@ -119,7 +119,7 @@ $(document).ready(function() {
 		circArr.push(bg.circle(cx, cy, rad).attr({stroke: "none", fill: circFill}));
 		rad -= diff;
 	}
-	bg.circle(cx, cy, rad+diff).attr({stroke: "none", fill: "#000"});
+	bg.circle(cx, cy, rad+diff).attr({stroke: "none", fill: "rgba(80,80,80,0.5)"});
 
 	//draw needles
 	var needleFill = "rgba(220,220,220,0.5)";
