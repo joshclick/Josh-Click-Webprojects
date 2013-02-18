@@ -73,7 +73,7 @@ function updateBGColor() {
 	var m = new Date().getMinutes();
 	var time = hr*60 + m;
 
-	var h = time/1440*255;
+	var h = 255-time/1440*255;
 	var l = 60;
 	var brightColor =	"hsl(" + h + ",60," + l + ")";
 
@@ -122,7 +122,7 @@ $(document).ready(function() {
 	bg.circle(cx, cy, rad+diff).attr({stroke: "none", fill: "rgba(80,80,80,0.5)"});
 
 	//draw needles
-	var needleFill = "rgba(220,220,220,0.5)";
+	var needleFill = "rgba(250,250,250,0.6)";
 	var secNeedle = new Needle(bg, 's', hSIZE-diff, hSIZE, 3, needleFill);
 	var minNeedle = new Needle(bg, 'm', hSIZE-(diff*2), hSIZE-diff, 3, needleFill);
 	var hrNeedle = new Needle(bg, 'h', hSIZE-(diff*3), hSIZE-(diff*2), 3, needleFill);
